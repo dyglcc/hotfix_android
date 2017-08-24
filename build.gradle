@@ -48,6 +48,6 @@ ext {
     POM_DEVELOPER_NAME="beijing jinniu, Inc."
 
     BINTRAY_LICENCE= ['BSD 3-Clause']
-    BINTRAY_ORGANIZATION = "tinker"
+    BINTRAY_ORGANIZATION = "hotfix_android"
 
 }
