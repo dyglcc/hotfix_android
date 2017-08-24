@@ -30,11 +30,11 @@ ext {
     buildToolsVersion = '23.0.2'
     javaVersion = JavaVersion.VERSION_1_7
 
-    GROUP = 'com.jiniu.hotfix_android'
+    GROUP = 'com.jiniu.hotfixand'
     VERSION_NAME = "${VERSION_NAME_PREFIX}${VERSION_NAME_SUFFIX}"
 
     POM_PACKAGING = "pom"
-    POM_DESCRIPTION= "hotfix_android"
+    POM_DESCRIPTION= "hotfixand"
 
     POM_URL = "https://github.com/dyglcc/hotfix_android"
     POM_SCM_URL = "https://github.com/dyglcc/hotfix_android.git"
@@ -44,10 +44,10 @@ ext {
     POM_LICENCE_URL = "https://opensource.org/licenses/BSD-3-Clause"
     POM_LICENCE_DIST = "repo"
 
-    POM_DEVELOPER_ID="jinniu"
-    POM_DEVELOPER_NAME="beijing jinniu, Inc."
+    POM_DEVELOPER_ID="dyglcc"
+    POM_DEVELOPER_NAME="dongyuangui"
 
     BINTRAY_LICENCE= ['BSD 3-Clause']
-    BINTRAY_ORGANIZATION = "hotfix_android"
+    BINTRAY_ORGANIZATION = "hotfixand"
 
 }
