@@ -16,4 +16,5 @@ task buildTinkerSdk(type: Copy, dependsOn: [build]) {
 }
 
 apply from: rootProject.file('gradle/java-artifacts.gradle')
-apply from: rootProject.file('gradle/gradle-mvn-push.gradle')
+//modify by dyg 注释下面一行
+//apply from: rootProject.file('gradle/gradle-mvn-push.gradle')

@@ -1,0 +1,95 @@
+apply plugin: 'com.jfrog.bintray'
+apply plugin: 'maven-publish'
+//apply plugin: 'com.github.dcendents.android-maven'
+//Could not create package 'dyglcc/maven/hotfixand': HTTP/1.1 404 Not Found [message:Repo 'maven' was not found]
+def BINTRAY_USER='dyglcc'
+def BINTRAY_KEY='35d7e5c91ecfe4a80e3efb6b7de90717685d695c'
+def group = rootProject.ext.GROUP
+def versionName = rootProject.ext.versionName
+def artifactName = 'hotfixand-patch-gradle-plugin'
+def projectName = 'hotfixand'
+def mavenDesc = 'android hotfix plugin'
+def baseUrl = 'https://github.com/dyglcc/hotfix_android'
+def siteUrl = baseUrl
+def gitUrl = 'https://github.com/dyglcc/hotfix_android.git'
+def issueUrl = 'https://github.com/dyglcc/hotfix_android/issues'
+
+def licenseIds = ['Apache-2.0']
+def licenseNames = ['The Apache Software License, Version 2.0']
+def licenseUrls = ['http://www.apache.org/licenses/LICENSE-2.0.txt']
+def inception = '2017'
+def username = 'dyglcc'
+
+install {
+    repositories {
+        mavenInstaller {
+            pom.project {
+                // Description
+                name projectName
+                description mavenDesc
+                url siteUrl
+                // Archive
+                groupId group
+//                artifactId archivesBaseName
+                artifactId artifactName
+                version versionName
+
+                // License
+                inceptionYear inception
+                licenses {
+                    licenseNames.eachWithIndex { ln, li ->
+                        license {
+                            name ln
+                            url licenseUrls[li]
+                        }
+                    }
+                }
+                developers {
+                    developer {
+                        name username
+                    }
+                }
+                scm {
+                    connection gitUrl
+                    developerConnection gitUrl
+                    url siteUrl
+                }
+            }
+        }
+    }
+}
+
+task sourcesJar(type: Jar) {
+    from sourceSets.main.allGroovy
+    classifier = 'sources'
+}
+
+
+task javadocJar(type: Jar, dependsOn: groovydoc) {
+    from groovydoc.destinationDir
+    classifier = 'javadoc'
+}
+
+artifacts {
+    archives javadocJar
+    archives sourcesJar
+}
+
+
+bintray {
+    user = BINTRAY_USER
+    key = BINTRAY_KEY
+    configurations = ['archives']
+    pkg {
+        repo = 'repo'
+        name = projectName
+        desc = mavenDesc
+        websiteUrl = siteUrl
+        issueTrackerUrl = issueUrl
+        vcsUrl = gitUrl
+        labels = ['gradle', 'plugin', 'hotfixand']
+        licenses = licenseIds
+        publish = true
+        publicDownloadNumbers = true
+}
+}

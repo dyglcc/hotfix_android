@@ -47,7 +47,7 @@ public class AnnotationProcessor extends AbstractProcessor {
 
     @Override
     public Set<String> getSupportedAnnotationTypes() {
-        final Set<String> supportedAnnotationTypes = new LinkedHashSet<>();
+          final Set<String> supportedAnnotationTypes = new LinkedHashSet<>();
 
         supportedAnnotationTypes.add(DefaultLifeCycle.class.getName());
 

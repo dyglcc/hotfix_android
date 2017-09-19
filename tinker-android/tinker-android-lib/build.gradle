@@ -11,6 +11,7 @@ android {
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
     }
+    buildToolsVersion '25.0.0'
 }
 
 dependencies {
@@ -33,7 +34,8 @@ task buildTinkerSdk(type: Copy, dependsOn: [build]) {
 }
 
 apply from: rootProject.file('gradle/android-artifacts.gradle')
-apply from: rootProject.file('gradle/gradle-mvn-push.gradle')
+//modify by dyg 注释下面一行
+//apply from: rootProject.file('gradle/gradle-mvn-push.gradle')
 
 
 
