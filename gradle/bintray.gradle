@@ -2,8 +2,8 @@ apply plugin: 'com.jfrog.bintray'
 apply plugin: 'maven-publish'
 //apply plugin: 'com.github.dcendents.android-maven'
 //Could not create package 'dyglcc/maven/hotfixand': HTTP/1.1 404 Not Found [message:Repo 'maven' was not found]
-def BINTRAY_USER='dyglcc'
-def BINTRAY_KEY='35d7e5c91ecfe4a80e3efb6b7de90717685d695c'
+def BINTRAY_USER = 'dyglcc'
+def BINTRAY_KEY = '35d7e5c91ecfe4a80e3efb6b7de90717685d695c'
 def group = rootProject.ext.GROUP
 def versionName = rootProject.ext.versionName
 def artifactName = 'hotfixand-patch-gradle-plugin'
@@ -91,5 +91,5 @@ bintray {
         licenses = licenseIds
         publish = true
         publicDownloadNumbers = true
-}
+    }
 }

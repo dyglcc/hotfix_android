@@ -46,7 +46,6 @@ public class TinkerManifestTask extends DefaultTask {
             throw new GradleException('tinkerId is not set!!!')
         }
 
-        //todo 默认加上渠道名称和构建方式debug或者relase
         tinkerValue = TINKER_ID_PREFIX + tinkerValue
 
         project.logger.error("tinker add ${tinkerValue} to your AndroidManifest.xml ${manifestPath}")

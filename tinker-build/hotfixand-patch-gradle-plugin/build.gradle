@@ -12,8 +12,8 @@ dependencies {
     compile localGroovy()
 //    compile fileTree(dir: 'libs', include: ['*.jar'])
     // modify by dyg change2 online tinker
-//    compile project(':tinker-build:tinker-patch-lib')
-    compile 'com.tencent.tinker:tinker-patch-lib:1.8.1'
+    compile project(':tinker-build:tinker-patch-lib')
+//    compile 'com.tencent.tinker:tinker-patch-lib:1.8.1'
     compile 'com.google.gradle:osdetector-gradle-plugin:1.2.1'
     compile 'com.android.tools.build:gradle:2.1.0'
 }
@@ -45,5 +45,14 @@ uploadArchives{
         }
     }
 }*/
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            repository(url: uri('/Users/dongyuangui/GITHUB/HotFixDemo/repo'))
+        }
+    }
+}
+
 apply from: rootProject.file('gradle/bintray.gradle')
 

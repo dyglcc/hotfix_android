@@ -1,0 +1,1 @@
+运行 gradle Task upload下的uploadArchives 可以生成本地repo
