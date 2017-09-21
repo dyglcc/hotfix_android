@@ -33,10 +33,10 @@ public class TinkerPatchSchemaTask extends DefaultTask {
     def signConfig
 
     public TinkerPatchSchemaTask() {
-        description = 'Assemble Tinker Patch'
-        group = 'tinker'
+        description = 'Assemble Hotfix Patch'
+        group = 'hotfix'
         outputs.upToDateWhen { false }
-        configuration = project.tinkerPatch
+        configuration = project.hotfixPatch
 
         android = project.extensions.android
     }

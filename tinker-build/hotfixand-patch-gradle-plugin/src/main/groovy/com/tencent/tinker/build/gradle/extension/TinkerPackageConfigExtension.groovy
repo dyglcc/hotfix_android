@@ -50,7 +50,7 @@ public class TinkerPackageConfigExtension {
 
     private void createApkMetaFile() {
         if (androidManifest == null) {
-            File oldPakFile = new File(project.tinkerPatch.oldApk)
+            File oldPakFile = new File(project.hotfixPatch.oldApk)
 
             if (!oldPakFile.exists()) {
                 throw new GradleException(

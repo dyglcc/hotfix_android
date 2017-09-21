@@ -58,7 +58,7 @@ public class TinkerPatchExtension {
      * whether use tinker
      * default: true
      */
-    boolean tinkerEnable
+    boolean hotfixEnable
 
     public TinkerPatchExtension() {
         oldApk = ""
@@ -66,7 +66,7 @@ public class TinkerPatchExtension {
         newApk = ""
         ignoreWarning = false
         useSign = true
-        tinkerEnable = true
+        hotfixEnable = true
     }
 
     void checkParameter() {
@@ -88,7 +88,7 @@ public class TinkerPatchExtension {
            | outputFolder = ${outputFolder}
            | newApk = ${newApk}
            | ignoreWarning = ${ignoreWarning}
-           | tinkerEnable = ${tinkerEnable}
+           | hotfixEnable = ${hotfixEnable}
            | useSign = ${useSign}
         """.stripMargin()
     }

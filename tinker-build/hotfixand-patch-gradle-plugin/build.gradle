@@ -5,19 +5,24 @@ apply plugin: "maven"
 version rootProject.ext.versionName
 group rootProject.ext.GROUP
 
-
-
 dependencies {
     compile gradleApi()
     compile localGroovy()
-//    compile fileTree(dir: 'libs', include: ['*.jar'])
+//    compile fileTree(include: ['*.jar'], dir: 'libs')
     // modify by dyg change2 online tinker
     compile project(':tinker-build:tinker-patch-lib')
-//    compile 'com.tencent.tinker:tinker-patch-lib:1.8.1'
+//        compile 'com.tencent.tinker:tinker-patch-lib:1.8.1'
     compile 'com.google.gradle:osdetector-gradle-plugin:1.2.1'
     compile 'com.android.tools.build:gradle:2.1.0'
-}
+//    add by dyg
+//    compile group: 'com.tencent.tinker', name: 'tinker-commons', version: '1.8.1'
+//    compile group: 'com.tencent.mm', name: 'apk-parser-lib', version: '1.2.1'
+//    compile group: 'com.google.guava', name: 'guava', version: '11.0.2'
+//    compile group: 'org.ow2.asm', name: 'asm', version: '5.0.3'
+//    compile group: 'org.smali', name: 'dexlib2', version: '2.1.3'
 
+
+}
 repositories {
     jcenter()
 }
@@ -31,6 +36,10 @@ sourceSets {
         resources {
             srcDir 'src/main/resources'
         }
+
+//        java {
+//            srcDir 'src/main/java'
+//        }
     }
 }
 

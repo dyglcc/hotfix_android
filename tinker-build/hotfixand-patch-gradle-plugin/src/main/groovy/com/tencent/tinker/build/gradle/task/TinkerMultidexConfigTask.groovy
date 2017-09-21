@@ -46,20 +46,20 @@ public class TinkerMultidexConfigTask extends DefaultTask {
     def applicationVariant
 
     public TinkerMultidexConfigTask() {
-        group = 'tinker'
+        group = 'hotfix'
     }
 
     @TaskAction
     def updateTinkerProguardConfig() {
         File file = project.file(MULTIDEX_CONFIG_PATH)
-        project.logger.error("try update tinker multidex keep proguard file with ${file}")
+        project.logger.error("try update hotfix multidex keep proguard file with ${file}")
 
         // Create the directory if it doesn't exist already
         file.getParentFile().mkdirs()
 
         StringBuffer lines = new StringBuffer()
         lines.append("\n")
-             .append("#tinker multidex keep patterns:\n")
+             .append("#hotfix multidex keep patterns:\n")
              .append(MULTIDEX_CONFIG_SETTINGS)
              .append("\n")
 
@@ -72,7 +72,7 @@ public class TinkerMultidexConfigTask extends DefaultTask {
 
         lines.append("#your dex.loader patterns here\n")
 
-        Iterable<String> loader = project.extensions.tinkerPatch.dex.loader
+        Iterable<String> loader = project.extensions.hotfixPatch.dex.loader
         for (String pattern : loader) {
             if (pattern.endsWith("*")) {
                 if (!pattern.endsWith("**")) {

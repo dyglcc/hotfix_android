@@ -39,11 +39,11 @@ public class TinkerBuildConfigExtension {
 
     /**
      * because we don't want to check the base apk with md5 in the runtime(it is slow)
-     * tinkerId is use to identify the unique base apk when the patch is tried to apply.
+     * hotfixId is use to identify the unique base apk when the patch is tried to apply.
      * we can use git rev, svn rev or simply versionCode.
-     * we will gen the tinkerId in your manifest automatic
+     * we will gen the hotfixId in your manifest automatic
      */
-    String tinkerId
+    String hotfixId
 
     /**
      * Whether tinker should treat the base apk as the one being protected by app
@@ -68,15 +68,15 @@ public class TinkerBuildConfigExtension {
         this.project = project
         applyMapping = ""
         applyResourceMapping = ""
-        tinkerId = null
+        hotfixId = null
         usingResourceMapping = false
         keepDexApply = false
         isProtectedApp = false
     }
 
     void checkParameter() {
-        if (tinkerId == null || tinkerId.isEmpty()) {
-            throw new GradleException("you must set your tinkerId to identify the base apk!")
+        if (hotfixId == null || hotfixId.isEmpty()) {
+            throw new GradleException("you must set your hotfixId to identify the base apk!")
         }
     }
 
@@ -87,7 +87,7 @@ public class TinkerBuildConfigExtension {
            | applyResourceMapping = ${applyResourceMapping}
            | isProtectedApp = ${isProtectedApp}
            | keepDexApply = ${keepDexApply}
-           | tinkerId = ${tinkerId}
+           | hotfixId = ${hotfixId}
         """.stripMargin()
     }
 }

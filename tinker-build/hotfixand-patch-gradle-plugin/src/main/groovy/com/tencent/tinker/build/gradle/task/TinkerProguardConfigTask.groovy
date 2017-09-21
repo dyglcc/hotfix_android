@@ -63,7 +63,7 @@ public class TinkerProguardConfigTask extends DefaultTask {
 
 
     public TinkerProguardConfigTask() {
-        group = 'tinker'
+        group = 'hotfix'
     }
 
     @TaskAction
@@ -77,7 +77,7 @@ public class TinkerProguardConfigTask extends DefaultTask {
         // Write our recommended proguard settings to this file
         FileWriter fr = new FileWriter(file.path)
 
-        String applyMappingFile = project.extensions.tinkerPatch.buildConfig.applyMapping
+        String applyMappingFile = project.extensions.hotfixPatch.buildConfig.applyMapping
 
         //write applymapping
         if (shouldApplyMapping && FileOperation.isLegalFile(applyMappingFile)) {
@@ -92,7 +92,7 @@ public class TinkerProguardConfigTask extends DefaultTask {
 
         fr.write("#your dex.loader patterns here\n")
         //they will removed when apply
-        Iterable<String> loader = project.extensions.tinkerPatch.dex.loader
+        Iterable<String> loader = project.extensions.hotfixPatch.dex.loader
         for (String pattern : loader) {
             if (pattern.endsWith("*") && !pattern.endsWith("**")) {
                 pattern += "*"

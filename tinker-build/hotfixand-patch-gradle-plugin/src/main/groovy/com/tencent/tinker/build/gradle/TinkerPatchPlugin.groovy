@@ -33,7 +33,7 @@ import org.gradle.api.Task
  */
 
 class TinkerPatchPlugin implements Plugin<Project> {
-    public static final String TINKER_INTERMEDIATES = "build/intermediates/tinker_intermediates/"
+    public static final String TINKER_INTERMEDIATES = "build/intermediates/hotfix_intermediates/"
 
     @Override
     public void apply(Project project) {
@@ -44,15 +44,15 @@ class TinkerPatchPlugin implements Plugin<Project> {
             project.apply plugin: 'com.google.osdetector'
         }
 
-        project.extensions.create('tinkerPatch', TinkerPatchExtension)
+        project.extensions.create('hotfixPatch', TinkerPatchExtension)
 
-        project.tinkerPatch.extensions.create('buildConfig', TinkerBuildConfigExtension, project)
+        project.hotfixPatch.extensions.create('buildConfig', TinkerBuildConfigExtension, project)
 
-        project.tinkerPatch.extensions.create('dex', TinkerDexExtension, project)
-        project.tinkerPatch.extensions.create('lib', TinkerLibExtension)
-        project.tinkerPatch.extensions.create('res', TinkerResourceExtension)
-        project.tinkerPatch.extensions.create('packageConfig', TinkerPackageConfigExtension, project)
-        project.tinkerPatch.extensions.create('sevenZip', TinkerSevenZipExtension, project)
+        project.hotfixPatch.extensions.create('dex', TinkerDexExtension, project)
+        project.hotfixPatch.extensions.create('lib', TinkerLibExtension)
+        project.hotfixPatch.extensions.create('res', TinkerResourceExtension)
+        project.hotfixPatch.extensions.create('packageConfig', TinkerPackageConfigExtension, project)
+        project.hotfixPatch.extensions.create('sevenZip', TinkerSevenZipExtension, project)
 
         if (!project.plugins.hasPlugin('com.android.application')) {
             throw new GradleException('generateTinkerApk: Android Application plugin required')
@@ -71,21 +71,21 @@ class TinkerPatchPlugin implements Plugin<Project> {
         }
 
         project.afterEvaluate {
-            def configuration = project.tinkerPatch
+            def configuration = project.hotfixPatch
 
-            if (!configuration.tinkerEnable) {
+            if (!configuration.hotfixEnable) {
                 project.logger.error("tinker tasks are disabled.")
                 return
             }
 
-            project.logger.error("----------------------tinker build warning ------------------------------------")
-            project.logger.error("tinker auto operation: ")
+            project.logger.error("----------------------hotfix build warning ------------------------------------")
+            project.logger.error("hotfix auto operation: ")
             project.logger.error("excluding annotation processor and source template from app packaging. Enable dx jumboMode to reduce package size.")
             project.logger.error("enable dx jumboMode to reduce package size.")
             project.logger.error("disable preDexLibraries to prevent ClassDefNotFoundException when your app is booting.")
             project.logger.error("")
-            project.logger.error("tinker will change your build configs:")
-            project.logger.error("we will add TINKER_ID=${configuration.buildConfig.tinkerId} in your build output manifest file build/intermediates/manifests/full/*")
+            project.logger.error("hotfix will change your build configs:")
+            project.logger.error("we will add HOTFIX_ID=${configuration.buildConfig.hotfixId} in your build output manifest file build/intermediates/manifests/full/*")
             project.logger.error("")
             project.logger.error("if minifyEnabled is true")
 
@@ -126,7 +126,7 @@ class TinkerPatchPlugin implements Plugin<Project> {
                     )
                 }
 
-                TinkerPatchSchemaTask tinkerPatchBuildTask = project.tasks.create("tinkerPatch${variantName}", TinkerPatchSchemaTask)
+                TinkerPatchSchemaTask tinkerPatchBuildTask = project.tasks.create("hotfixPatch${variantName}", TinkerPatchSchemaTask)
 
                 tinkerPatchBuildTask.signConfig = variant.apkVariantData.variantConfiguration.signingConfig
 
@@ -138,14 +138,14 @@ class TinkerPatchPlugin implements Plugin<Project> {
                 // Create a task to add a build TINKER_ID to AndroidManifest.xml
                 // This task must be called after "process${variantName}Manifest", since it
                 // requires that an AndroidManifest.xml exists in `build/intermediates`.
-                TinkerManifestTask manifestTask = project.tasks.create("tinkerProcess${variantName}Manifest", TinkerManifestTask)
+                TinkerManifestTask manifestTask = project.tasks.create("hotfixProcess${variantName}Manifest", TinkerManifestTask)
                 manifestTask.manifestPath = variantOutput.processManifest.manifestOutputFile
                 manifestTask.mustRunAfter variantOutput.processManifest
 
                 variantOutput.processResources.dependsOn manifestTask
 
                 //resource id
-                TinkerResourceIdTask applyResourceTask = project.tasks.create("tinkerProcess${variantName}ResourceId", TinkerResourceIdTask)
+                TinkerResourceIdTask applyResourceTask = project.tasks.create("hotfixProcess${variantName}ResourceId", TinkerResourceIdTask)
                 applyResourceTask.resDir = variantOutput.processResources.resDir
                 //let applyResourceTask run after manifestTask
                 applyResourceTask.mustRunAfter manifestTask
@@ -171,7 +171,7 @@ class TinkerPatchPlugin implements Plugin<Project> {
                 boolean multiDexEnabled = variant.apkVariantData.variantConfiguration.isMultiDexEnabled()
 
                 if (multiDexEnabled) {
-                    TinkerMultidexConfigTask multidexConfigTask = project.tasks.create("tinkerProcess${variantName}MultidexKeep", TinkerMultidexConfigTask)
+                    TinkerMultidexConfigTask multidexConfigTask = project.tasks.create("hotfixProcess${variantName}MultidexKeep", TinkerMultidexConfigTask)
                     multidexConfigTask.applicationVariant = variant
                     multidexConfigTask.mustRunAfter manifestTask
 
@@ -186,7 +186,7 @@ class TinkerPatchPlugin implements Plugin<Project> {
                 }
 
                 if (configuration.buildConfig.keepDexApply
-                    && FileOperation.isLegalFile(project.tinkerPatch.oldApk)) {
+                    && FileOperation.isLegalFile(project.hotfixPatch.oldApk)) {
                     com.tencent.tinker.build.gradle.transform.ImmutableDexTransform.inject(project, variant)
                 }
             }

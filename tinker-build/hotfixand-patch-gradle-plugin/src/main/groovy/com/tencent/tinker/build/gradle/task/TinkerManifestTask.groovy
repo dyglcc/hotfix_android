@@ -30,32 +30,32 @@ import org.gradle.api.tasks.TaskAction
  */
 public class TinkerManifestTask extends DefaultTask {
     static final String MANIFEST_XML = TinkerPatchPlugin.TINKER_INTERMEDIATES + "AndroidManifest.xml"
-    static final String TINKER_ID = "TINKER_ID"
-    static final String TINKER_ID_PREFIX = "tinker_id_"
+    static final String TINKER_ID = "HOTFIX_ID"
+    static final String TINKER_ID_PREFIX = "hotfix_id_"
 
     String manifestPath
     TinkerManifestTask() {
-        group = 'tinker'
+        group = 'hotfix'
     }
 
     @TaskAction
     def updateManifest() {
         // Parse the AndroidManifest.xml
-        String tinkerValue = project.extensions.tinkerPatch.buildConfig.tinkerId
+        String tinkerValue = project.extensions.hotfixPatch.buildConfig.hotfixId
         if (tinkerValue == null || tinkerValue.isEmpty()) {
-            throw new GradleException('tinkerId is not set!!!')
+            throw new GradleException('hotfixId is not set!!!')
         }
 
         tinkerValue = TINKER_ID_PREFIX + tinkerValue
 
-        project.logger.error("tinker add ${tinkerValue} to your AndroidManifest.xml ${manifestPath}")
+        project.logger.error("hotfix add ${tinkerValue} to your AndroidManifest.xml ${manifestPath}")
 
         writeManifestMeta(manifestPath, TINKER_ID, tinkerValue)
         addApplicationToLoaderPattern()
         File manifestFile = new File(manifestPath)
         if (manifestFile.exists()) {
             FileOperation.copyFileUsingStream(manifestFile, project.file(MANIFEST_XML))
-            project.logger.error("tinker gen AndroidManifest.xml in ${MANIFEST_XML}")
+            project.logger.error("hotfix gen AndroidManifest.xml in ${MANIFEST_XML}")
         }
 
     }
@@ -87,17 +87,17 @@ public class TinkerManifestTask extends DefaultTask {
     }
 
     void addApplicationToLoaderPattern() {
-        Iterable<String> loader = project.extensions.tinkerPatch.dex.loader
+        Iterable<String> loader = project.extensions.hotfixPatch.dex.loader
         String applicationName = readManifestApplicationName(manifestPath)
 
         if (applicationName != null && !loader.contains(applicationName)) {
             loader.add(applicationName)
-            project.logger.error("tinker add ${applicationName} to dex loader pattern")
+            project.logger.error("hotfix add ${applicationName} to dex loader pattern")
         }
         String loaderClass = "com.tencent.tinker.loader.*"
         if (!loader.contains(loaderClass)) {
             loader.add(loaderClass)
-            project.logger.error("tinker add ${loaderClass} to dex loader pattern")
+            project.logger.error("hotfix add ${loaderClass} to dex loader pattern")
         }
 
     }

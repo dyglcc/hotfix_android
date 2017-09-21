@@ -37,12 +37,12 @@ public class TinkerResourceIdTask extends DefaultTask {
     String resDir
 
     TinkerResourceIdTask() {
-        group = 'tinker'
+        group = 'hotfix'
     }
 
     @TaskAction
     def applyResourceId() {
-        String resourceMappingFile = project.extensions.tinkerPatch.buildConfig.applyResourceMapping
+        String resourceMappingFile = project.extensions.hotfixPatch.buildConfig.applyResourceMapping
 
         // Parse the public.xml and ids.xml
         if (!FileOperation.isLegalFile(resourceMappingFile)) {
@@ -57,7 +57,7 @@ public class TinkerResourceIdTask extends DefaultTask {
         resourceDirectoryList.add(resDir)
 
         project.logger.error("we build ${project.getName()} apk with apply resource mapping file ${resourceMappingFile}")
-        project.extensions.tinkerPatch.buildConfig.usingResourceMapping = true
+        project.extensions.hotfixPatch.buildConfig.usingResourceMapping = true
         Map<RDotTxtEntry.RType, Set<RDotTxtEntry>> rTypeResourceMap = PatchUtil.readRTxt(resourceMappingFile)
 
         AaptResourceCollector aaptResourceCollector = AaptUtil.collectResource(resourceDirectoryList, rTypeResourceMap)
@@ -65,12 +65,12 @@ public class TinkerResourceIdTask extends DefaultTask {
         File publicFile = new File(publicXml)
         if (publicFile.exists()) {
             FileOperation.copyFileUsingStream(publicFile, project.file(RESOURCE_PUBLIC_XML))
-            project.logger.error("tinker gen resource public.xml in ${RESOURCE_PUBLIC_XML}")
+            project.logger.error("hotfix gen resource public.xml in ${RESOURCE_PUBLIC_XML}")
         }
         File idxFile = new File(idsXml)
         if (idxFile.exists()) {
             FileOperation.copyFileUsingStream(idxFile, project.file(RESOURCE_IDX_XML))
-            project.logger.error("tinker gen resource idx.xml in ${RESOURCE_IDX_XML}")
+            project.logger.error("hotfix gen resource idx.xml in ${RESOURCE_IDX_XML}")
         }
     }
 }
