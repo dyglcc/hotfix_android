@@ -16,6 +16,9 @@
 
 package com.tencent.tinker.lib.util;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 /**
  * Created by zhangshaowen on 16/3/17.
  */
@@ -26,33 +29,43 @@ public class TinkerLog {
     private static TinkerLogImp debugLog = new TinkerLogImp() {
 
         @Override
-        public void v(final String tag, final String format, final Object... params) {
+        public void v(String tag, final String format, final Object... params) {
             String log = (params == null || params.length == 0) ? format : String.format(format, params);
+            log = replaceString(log);
+            tag = replaceString(tag);
             android.util.Log.v(tag, log);
         }
 
         @Override
-        public void i(final String tag, final String format, final Object... params) {
+        public void i(String tag, final String format, final Object... params) {
             String log = (params == null || params.length == 0) ? format : String.format(format, params);
+            log = replaceString(log);
+            tag = replaceString(tag);
             android.util.Log.i(tag, log);
 
         }
 
         @Override
-        public void d(final String tag, final String format, final Object... params) {
+        public void d(String tag, final String format, final Object... params) {
             String log = (params == null || params.length == 0) ? format : String.format(format, params);
+            log = replaceString(log);
+            tag = replaceString(tag);
             android.util.Log.d(tag, log);
         }
 
         @Override
-        public void w(final String tag, final String format, final Object... params) {
+        public void w(String tag, final String format, final Object... params) {
             String log = (params == null || params.length == 0) ? format : String.format(format, params);
+            log = replaceString(log);
+            tag = replaceString(tag);
             android.util.Log.w(tag, log);
         }
 
         @Override
-        public void e(final String tag, final String format, final Object... params) {
+        public void e(String tag, final String format, final Object... params) {
             String log = (params == null || params.length == 0) ? format : String.format(format, params);
+            log = replaceString(log);
+            tag = replaceString(tag);
             android.util.Log.e(tag, log);
         }
 
@@ -63,9 +76,24 @@ public class TinkerLog {
                 log = "";
             }
             log += "  " + android.util.Log.getStackTraceString(tr);
+
+            log = replaceString(log);
+            tag = replaceString(tag);
             android.util.Log.e(tag, log);
         }
     };
+
+    private static Pattern pattern = Pattern.compile("tinker", Pattern.CASE_INSENSITIVE);
+
+    public static String replaceString(String sourc) {
+
+        if (sourc == null || sourc.equals("")) {
+            return sourc;
+        }
+        Matcher matcher = pattern.matcher(sourc);
+        return matcher.replaceAll("hotfix");
+    }
+
     private static TinkerLogImp tinkerLogImp = debugLog;
 
     public static void setTinkerLogImp(TinkerLogImp imp) {

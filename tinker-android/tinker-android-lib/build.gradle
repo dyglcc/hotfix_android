@@ -31,12 +31,29 @@ task buildTinkerSdk(type: Copy, dependsOn: [build]) {
     rename { String fileName ->
         fileName.replace("release", "${version}")
     }
+
+}
+task hotfixSDK(type: Copy, dependsOn: [build]) {
+    group = "hotfix"
+    from("$buildDir/outputs/aar/") {
+        include "${project.getName()}-release.aar"
+    }
+
+    into('/Users/dongyuangui/GITHUB/HotFixDemo/app/libs')
+    into('/Users/dongyuangui/GITHUB/tinker-manager/patchsdk/patchsdk/libs/')
+    rename { String fileName ->
+        fileName.replace("release", "${version}")
+    }
+    rename{ String fileName->
+        fileName.replace("tinker","hotfix")
+    }
 }
 
 apply from: rootProject.file('gradle/android-artifacts.gradle')
 //modify by dyg 注释下面一行
 //apply from: rootProject.file('gradle/gradle-mvn-push.gradle')
 
+apply from : rootProject.file('gradle/maven-local.gradle')
 
 
 

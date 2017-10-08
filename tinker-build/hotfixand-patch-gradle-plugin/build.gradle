@@ -9,7 +9,7 @@ dependencies {
     compile gradleApi()
     compile localGroovy()
 //    compile fileTree(include: ['*.jar'], dir: 'libs')
-    // modify by dyg change2 online tinker
+    // modify by dyg change2 local repo
     compile project(':tinker-build:tinker-patch-lib')
 //        compile 'com.tencent.tinker:tinker-patch-lib:1.8.1'
     compile 'com.google.gradle:osdetector-gradle-plugin:1.2.1'

@@ -30,8 +30,8 @@ public class ShareConstants {
 
     public static final int MAX_EXTRACT_ATTEMPTS = 2;
 
-    public static final String TINKER_ID     = "TINKER_ID";
-    public static final String NEW_TINKER_ID = "NEW_TINKER_ID";
+    public static final String TINKER_ID     = "HOTFIX_ID";
+    public static final String NEW_TINKER_ID = "NEW_HOTFIX_ID";
 
     public static final String OLD_VERSION     = "old";
     public static final String NEW_VERSION     = "new";

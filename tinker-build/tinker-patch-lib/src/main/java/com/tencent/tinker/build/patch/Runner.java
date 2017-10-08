@@ -55,7 +55,7 @@ public class Runner {
     }
 
     protected void tinkerPatch() {
-        Logger.d("-----------------------Tinker patch begin-----------------------");
+        Logger.d("-----------------------Hotfix patch begin-----------------------");
 
         Logger.d(config.toString());
         try {
@@ -78,9 +78,9 @@ public class Runner {
             goToError();
         }
 
-        Logger.d("Tinker patch done, total time cost: %fs", diffTimeFromBegin());
-        Logger.d("Tinker patch done, you can go to file to find the output %s", config.mOutFolder);
-        Logger.d("-----------------------Tinker patch end-------------------------");
+        Logger.d("Hotfix patch done, total time cost: %fs", diffTimeFromBegin());
+        Logger.d("Hotfix patch done, you can go to file to find the output %s", config.mOutFolder);
+        Logger.d("-----------------------Hotfix patch end-------------------------");
     }
 
     private void loadConfigFromGradle(InputParam inputParam) {

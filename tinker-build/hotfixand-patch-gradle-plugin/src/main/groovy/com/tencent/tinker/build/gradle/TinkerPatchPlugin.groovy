@@ -156,7 +156,7 @@ class TinkerPatchPlugin implements Plugin<Project> {
                 boolean proguardEnable = variant.getBuildType().buildType.minifyEnabled
 
                 if (proguardEnable) {
-                    TinkerProguardConfigTask proguardConfigTask = project.tasks.create("tinkerProcess${variantName}Proguard", TinkerProguardConfigTask)
+                    TinkerProguardConfigTask proguardConfigTask = project.tasks.create("hotfixProcess${variantName}Proguard", TinkerProguardConfigTask)
                     proguardConfigTask.applicationVariant = variant
                     proguardConfigTask.mustRunAfter manifestTask
 

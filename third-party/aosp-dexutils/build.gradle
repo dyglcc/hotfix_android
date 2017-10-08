@@ -12,9 +12,23 @@ task buildTinkerSdk(type: Copy, dependsOn: [build]) {
         exclude '*javadoc.jar'
         exclude '*-sources.jar'
     }
+
     into(rootProject.file("buildSdk/android"))
+}
+task hotfixSDK(type: Copy, dependsOn: [build]) {
+    group = "hotfix"
+    from('build/libs') {
+        include '*.jar'
+        exclude '*javadoc.jar'
+        exclude '*-sources.jar'
+    }
+    into('/Users/dongyuangui/GITHUB/HotFixDemo/app/libs')
+    into('/Users/dongyuangui/GITHUB/tinker-manager/patchsdk/patchsdk/libs/')
 }
 
 apply from: rootProject.file('gradle/java-artifacts.gradle')
 //modify by dyg 注释下面一行
 //apply from: rootProject.file('gradle/gradle-mvn-push.gradle')
+
+apply from : rootProject.file('gradle/maven-local.gradle')
+//apply from : rootProject.file('gradle/maven-local4plugin.gradle')
